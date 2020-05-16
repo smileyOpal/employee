@@ -4,6 +4,8 @@ import com.interview.assignment.service.EmployeeService
 import com.interview.assignment.service.dto.RequestCreateEmployeeDTO
 import com.interview.assignment.service.dto.RequestUpdateEmployeeDTO
 import com.interview.assignment.service.dto.ResponseEmployeeDTO
+import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpHeaders
@@ -15,11 +17,13 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api")
+@Api("Employee resource")
 class EmployeeResource(private val employeeService: EmployeeService) {
 
     private val log = LoggerFactory.getLogger(this::class.java)
 
     @PostMapping("/employees")
+    @ApiOperation(notes = "Create employee", value = "Create new employee")
     fun createNewEmployee(@RequestBody @Valid request: RequestCreateEmployeeDTO): ResponseEntity<ResponseEmployeeDTO> {
         log.info("Request create new employee")
         val result = employeeService.createEmployee(request)
@@ -27,6 +31,7 @@ class EmployeeResource(private val employeeService: EmployeeService) {
     }
 
     @PutMapping("/employees/{employeeId}")
+    @ApiOperation(notes = "Update employee", value = "Update existing employee")
     fun updateEmployee(@PathVariable employeeId: Long, @RequestBody @Valid request: RequestUpdateEmployeeDTO): ResponseEntity<ResponseEmployeeDTO> {
         log.info("Request update employee")
         val result = employeeService.updateEmployee(employeeId, request)
@@ -34,6 +39,7 @@ class EmployeeResource(private val employeeService: EmployeeService) {
     }
 
     @GetMapping("/employees")
+    @ApiOperation(notes = "List all employees", value = "List employees")
     fun searchEmployees(pageable: Pageable): ResponseEntity<List<ResponseEmployeeDTO>> {
         log.info("Request search employees")
         val result = employeeService.getEmployees(pageable)
@@ -48,6 +54,7 @@ class EmployeeResource(private val employeeService: EmployeeService) {
     }
 
     @GetMapping("/employees/{employeeId}")
+    @ApiOperation(notes = "Get employee by id", value = "Get a employee")
     fun getEmployee(@PathVariable employeeId: Long): ResponseEntity<ResponseEmployeeDTO> {
         log.info("Request get employee by id '$employeeId'")
         val employee = employeeService.getEmployee(employeeId)
@@ -57,6 +64,7 @@ class EmployeeResource(private val employeeService: EmployeeService) {
 
     @DeleteMapping("/employees/{employeeId}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(notes = "Delete employee by id", value = "Delete a employee")
     fun deleteEmployee(@PathVariable employeeId: Long) {
         log.info("Request delete employee id '$employeeId'")
         employeeService.deleteEmployee(employeeId)
