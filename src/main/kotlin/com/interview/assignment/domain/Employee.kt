@@ -25,4 +25,30 @@ class Employee : AbstractAuditingEntity(), Serializable {
 
     @Column(name = "resign_date")
     var resignDate: ZonedDateTime? = null
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Employee
+
+        if (id != other.id) return false
+        if (firstname != other.firstname) return false
+        if (lastname != other.lastname) return false
+        if (joinDate != other.joinDate) return false
+        if (resignDate != other.resignDate) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id?.hashCode() ?: 0
+        result = 31 * result + (firstname?.hashCode() ?: 0)
+        result = 31 * result + (lastname?.hashCode() ?: 0)
+        result = 31 * result + joinDate.hashCode()
+        result = 31 * result + (resignDate?.hashCode() ?: 0)
+        return result
+    }
+
+
 }

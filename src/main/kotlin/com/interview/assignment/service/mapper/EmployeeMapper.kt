@@ -2,7 +2,6 @@ package com.interview.assignment.service.mapper
 
 import com.interview.assignment.domain.Employee
 import com.interview.assignment.service.dto.RequestCreateEmployeeDTO
-import com.interview.assignment.service.dto.RequestUpdateEmployeeDTO
 import com.interview.assignment.service.dto.ResponseEmployeeDTO
 import org.springframework.stereotype.Component
 import java.time.ZonedDateTime
