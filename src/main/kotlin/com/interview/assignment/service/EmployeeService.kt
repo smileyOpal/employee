@@ -5,6 +5,7 @@ import com.interview.assignment.service.dto.RequestCreateEmployeeDTO
 import com.interview.assignment.service.dto.RequestUpdateEmployeeDTO
 import com.interview.assignment.service.dto.ResponseEmployeeDTO
 import com.interview.assignment.service.mapper.EmployeeMapper
+import com.interview.assignment.web.rest.error.BadRequestException
 import com.interview.assignment.web.rest.error.NotFoundException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -35,14 +36,22 @@ class EmployeeServiceImpl(private val employeeMapper: EmployeeMapper,
     }
 
     override fun updateEmployee(employeeId: Long, request: RequestUpdateEmployeeDTO): ResponseEmployeeDTO {
+        validate(request)
         val employee = employeeRepository.findByIdOrNull(employeeId)
                 ?: throw NotFoundException("Employee ID not found for update")
         employee.firstname = request.firstname
         employee.lastname = request.lastname
         employee.joinDate = request.joinDate
         employee.resignDate = request.resignDate
+
         val result = employeeRepository.save(employee)
         return employeeMapper.employeeToResponseEmployeeDTO(result)
+    }
+
+    private fun validate(request: RequestUpdateEmployeeDTO) {
+        if (request.resignDate != null && request.joinDate.isAfter(request.resignDate)) {
+            throw BadRequestException("Employee joined date must be before resigned date")
+        }
     }
 
     override fun getEmployee(employeeId: Long): Optional<ResponseEmployeeDTO> {
