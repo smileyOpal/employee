@@ -9,7 +9,7 @@ import javax.validation.constraints.Size
 @Table(name = "employee")
 class Employee : AbstractAuditingEntity(), Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
     @Size(max = 50)
