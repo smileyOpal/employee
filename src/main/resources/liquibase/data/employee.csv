@@ -1,0 +1,8 @@
+id;employee_id;first_name;last_name;created_by;last_modified_by
+1;EMP00001;Harry;Potter;system;system
+2;EMP00002;Hermione;Granger;system;system
+3;EMP00003;Ron;Weasley;system;system
+4;EMP00004;Draco;Malfoy;system;system
+5;EMP00005;Lord;Voldemort;system;system
+6;EMP00006;Rubeus;Hagrid;system;system
+7;EMP00007;Albus;Dumbledore;system;system

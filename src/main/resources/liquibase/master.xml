@@ -21,17 +21,36 @@
             <column name="employee_id" type="varchar(50)"/>
             <column name="first_name" type="varchar(50)"/>
             <column name="last_name" type="varchar(50)"/>
-            <column name="join_date" type="timestamp"/>
+            <column name="join_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP"/>
             <column name="resign_date" type="timestamp">
                 <constraints nullable="true"/>
             </column>
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_date" type="timestamp"/>
-            <column name="last_modified_by" type="varchar(50)"/>
-            <column name="last_modified_date" type="timestamp"/>
+            <column name="created_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
+
+        <loadData
+                file="liquibase/data/employee.csv"
+                separator=";"
+                tableName="employee">
+            <column name="join_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="created_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_modified_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </loadData>
+
+        <dropDefaultValue tableName="employee" columnName="join_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="employee" columnName="created_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="employee" columnName="last_modified_date" columnDataType="datetime"/>
     </changeSet>
 
 </databaseChangeLog>

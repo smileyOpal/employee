@@ -50,7 +50,7 @@ class EmployeeServiceImpl(private val employeeMapper: EmployeeMapper,
     }
 
     override fun deleteEmployee(employeeId: Long) {
-        if (employeeRepository.existsById(employeeId)) throw NotFoundException("Employee ID not found for delete")
+        if (!employeeRepository.existsById(employeeId)) throw NotFoundException("Employee ID not found for delete")
         employeeRepository.deleteById(employeeId)
     }
 }
