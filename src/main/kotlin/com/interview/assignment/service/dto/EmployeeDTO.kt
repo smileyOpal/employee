@@ -24,7 +24,7 @@ data class RequestUpdateEmployeeDTO(@field:NotNull
                                     val joinDate: ZonedDateTime,
                                     val resignDate: ZonedDateTime? = null)
 
-data class ResponseEmployeeDTO(val id: Long = -1,
+data class ResponseEmployeeDTO(val id: Long? = null,
                                val firstname: String? = null,
                                val lastname: String? = null,
                                val joinDate: ZonedDateTime? = null,

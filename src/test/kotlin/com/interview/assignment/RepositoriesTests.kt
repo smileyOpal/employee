@@ -21,6 +21,7 @@ class RepositoriesTests @Autowired constructor(private val entityManager: TestEn
         val employee = Employee()
         employee.firstname = "Dudley"
         employee.lastname = "Dursley"
+        employee.joinDate = ZonedDateTime.now()
         val before = employeeRepository.count()
         val actual = employeeRepository.saveAndFlush(employee)
         assertThat(employeeRepository.count()).isGreaterThan(before)
@@ -35,7 +36,7 @@ class RepositoriesTests @Autowired constructor(private val entityManager: TestEn
         assertThat(actual.lastModifiedDate).isNotNull()
 
         actual.resignDate = ZonedDateTime.now()
-        val updated = employeeRepository.saveAndFlush(employee)
+        val updated = employeeRepository.saveAndFlush(actual)
         assertThat(updated.id).isEqualTo(actual.id)
         assertThat(updated.firstname).isEqualTo(actual.firstname)
         assertThat(updated.lastname).isEqualTo(actual.lastname)
