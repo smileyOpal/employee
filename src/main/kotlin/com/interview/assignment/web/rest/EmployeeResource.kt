@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*
 import java.net.URI
 import javax.validation.Valid
 
+/**
+ * A Resource/Controller layer that defined request interfaces and receives requests
+ */
 @RestController
 @RequestMapping("/api")
 @Api("Employee resource")

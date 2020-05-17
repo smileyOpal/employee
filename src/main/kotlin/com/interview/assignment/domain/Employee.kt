@@ -5,6 +5,9 @@ import java.time.ZonedDateTime
 import javax.persistence.*
 import javax.validation.constraints.Size
 
+/**
+ * An Entity that describe employee object in database
+ */
 @Entity
 @Table(name = "employee")
 data class Employee(@Id

@@ -6,6 +6,9 @@ import com.interview.assignment.service.dto.ResponseEmployeeDTO
 import org.springframework.stereotype.Component
 import java.time.ZonedDateTime
 
+/**
+ * A Generic stereotype for bean that handle data mapping between layers
+ */
 @Component
 class EmployeeMapper {
     fun employeeToResponseEmployeeDTO(employee: Employee): ResponseEmployeeDTO {

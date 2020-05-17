@@ -14,9 +14,15 @@ import java.util.*
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware", dateTimeProviderRef = "auditingDateTimeProvider")
 class DatabaseConfig {
 
+    /**
+     * Defined a customize auditingDateTimeProvider for JPA Auditor
+     */
     @Bean
     fun auditingDateTimeProvider() = DateTimeProvider { Optional.of(ZonedDateTime.now()) }
 
+    /**
+     * Declare springSecurityAuditorAware for JPA Auditor implementor to look up current principal
+     */
     @Bean
     fun springSecurityAuditorAware(): AuditorAware<String> = AuditorAware<String> { Optional.of("system") }
 }

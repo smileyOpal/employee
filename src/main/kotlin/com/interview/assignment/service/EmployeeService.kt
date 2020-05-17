@@ -13,11 +13,57 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.util.*
 
+/**
+ * A Service layer than handle all the CRUD logic for employee entity
+ */
 interface EmployeeService {
+    /**
+     * Return a page of employees
+     *
+     * @param   pageable
+     * @return  page object with content ResponseEmployeeDTO
+     * @see     Page
+     * @see     ResponseEmployeeDTO
+     */
     fun getEmployees(pageable: Pageable): Page<ResponseEmployeeDTO>
+
+    /**
+     * Create new employee
+     *
+     * @param request
+     * @return created employee response DTO
+     * @see RequestCreateEmployeeDTO
+     * @see ResponseEmployeeDTO
+     */
     fun createEmployee(request: RequestCreateEmployeeDTO): ResponseEmployeeDTO
+
+    /**
+     * Update existing employee
+     *
+     * @param employeeId
+     * @param request
+     * @throws NotFoundException if employee entity not found
+     * @throws BadRequestException if joinDate is after resignDate
+     * @see RequestUpdateEmployeeDTO
+     * @see ResponseEmployeeDTO
+     */
     fun updateEmployee(employeeId: Long, request: RequestUpdateEmployeeDTO): ResponseEmployeeDTO
+
+    /**
+     * Return employee
+     *
+     * @param employeeId
+     * @return optional of employee
+     * @see ResponseEmployeeDTO
+     */
     fun getEmployee(employeeId: Long): Optional<ResponseEmployeeDTO>
+
+    /**
+     * Delete employee by id
+     *
+     * @param employeeId
+     * @throws NotFoundException if employee entity not found
+     */
     fun deleteEmployee(employeeId: Long)
 }
 
@@ -48,6 +94,11 @@ class EmployeeServiceImpl(private val employeeMapper: EmployeeMapper,
         return employeeMapper.employeeToResponseEmployeeDTO(result)
     }
 
+    /**
+     * Validate employee update request
+     *
+     * @throws BadRequestException if resignDate has value but its value is before joinDate
+     */
     private fun validate(request: RequestUpdateEmployeeDTO) {
         if (request.resignDate != null && request.joinDate.isAfter(request.resignDate)) {
             throw BadRequestException("Employee joined date must be before resigned date")

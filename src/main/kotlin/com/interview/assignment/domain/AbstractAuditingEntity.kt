@@ -12,6 +12,9 @@ import javax.persistence.Column
 import javax.persistence.EntityListeners
 import javax.persistence.MappedSuperclass
 
+/**
+ * An abstract class that contains audit fields
+ */
 @MappedSuperclass
 @Audited
 @EntityListeners(AuditingEntityListener::class)
