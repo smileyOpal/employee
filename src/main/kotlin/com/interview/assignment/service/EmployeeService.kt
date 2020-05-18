@@ -100,7 +100,7 @@ class EmployeeServiceImpl(private val employeeMapper: EmployeeMapper,
      * @throws BadRequestException if resignDate has value but its value is before joinDate
      */
     private fun validate(request: RequestUpdateEmployeeDTO) {
-        if (request.resignDate != null && request.joinDate.isAfter(request.resignDate)) {
+        if (request.resignDate != null && request.joinDate != null && request.joinDate.isAfter(request.resignDate)) {
             throw BadRequestException("Employee joined date must be before resigned date")
         }
     }
