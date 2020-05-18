@@ -27,7 +27,7 @@ data class RequestUpdateEmployeeDTO(@field:NotNull
                                     val lastname: String? = null,
 
                                     @field:NotNull
-                                    val joinDate: ZonedDateTime,
+                                    val joinDate: ZonedDateTime? = null,
                                     val resignDate: ZonedDateTime? = null)
 
 /**
@@ -38,7 +38,9 @@ data class ResponseEmployeeDTO(val id: Long? = null,
                                val lastname: String? = null,
                                val joinDate: ZonedDateTime? = null,
                                val resignDate: ZonedDateTime? = null,
-                               val createdBy: String = "",
+                               val createdBy: String,
                                val createdDate: ZonedDateTime? = null,
-                               val lastModifiedBy: String = "",
-                               val lastModifiedDate: ZonedDateTime? = null)
+                               val lastModifiedBy: String,
+                               val lastModifiedDate: ZonedDateTime? = null) {
+    constructor() : this(null, null, null, null, null, "", null, "", null)
+}
